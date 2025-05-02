@@ -17,7 +17,7 @@ struct Product: Identifiable, Codable {
     var images: [String]
     var creationAt: String
     var updatedAt: String
-
+    var isFavorite: Bool?
 
     struct Category: Codable {
         var id: Int
@@ -30,6 +30,19 @@ struct Product: Identifiable, Codable {
 }
 
 extension Product {
+    static func save(_ products: [Product], to fileURL: URL) throws {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try encoder.encode(products)
+        try data.write(to: fileURL)
+    }
+
+    static func load(from fileURL: URL) throws -> [Product] {
+        let data = try Data(contentsOf: fileURL)
+        let decoder = JSONDecoder()
+        return try decoder.decode([Product].self, from: data)
+    }
+
     static func placeholder() -> Product {
         return Product(
             id: 0,

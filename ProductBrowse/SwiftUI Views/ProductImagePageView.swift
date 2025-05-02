@@ -16,8 +16,8 @@ struct ProductImagePageView: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 350, height: 220)
-                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 280)
                 } placeholder: {
                     ProgressView()
                 }
@@ -26,7 +26,7 @@ struct ProductImagePageView: View {
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .automatic))
         .frame(maxWidth: .infinity)
-        .frame(height: 220)
+        .frame(height: 300)
     }
 }
 

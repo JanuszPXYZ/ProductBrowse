@@ -24,16 +24,17 @@ class MainTabBarViewController: UITabBarController {
 
     private func configureViewControllers() {
         productManagerViewModel = ProductManagerViewModel(networker: networker)
-        let vcOne = ViewControllerOne()
+        let vcOne = ProductListViewController()
         vcOne.managerViewModel = productManagerViewModel
         vcOne.title = "Products"
         vcOne.tabBarItem.image = UIImage(systemName: "shippingbox.fill")
 
-        let vcTwo = ViewControllerTwo()
+        let vcTwo = SettingsViewController()
         vcTwo.title = "Settings"
         vcTwo.tabBarItem.image = UIImage(systemName: "gear")
 
         let favoritesVC = FavoritesViewController()
+        favoritesVC.productManagerViewModel = productManagerViewModel
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart.fill")
         

@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class ViewControllerOne: UIViewController {
+class ProductListViewController: UIViewController {
 
     private var productListView: UIHostingController<ProductListView>?
     private var productDetailView: UIHostingController<ProductDetailView>?
@@ -37,6 +37,13 @@ class ViewControllerOne: UIViewController {
             self.productDetailView = productDetailView
             self.navigationController?.pushViewController(productDetailView, animated: true)
 
+            self.productDetailView?.rootView.addFavoriteProductAction = { product in
+                self.managerViewModel?.addToFavorites(product: product)
+            }
+
+            self.productDetailView?.rootView.removeFavoriteProductAction = { product in
+                self.managerViewModel?.removeFromFavorites(product: product)
+            }
         }
 
         guard let productViewCell = productListView?.view else {

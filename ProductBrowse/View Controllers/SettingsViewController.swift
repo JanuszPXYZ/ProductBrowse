@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewControllerTwo: UIViewController {
+class SettingsViewController: UIViewController {
     
     private var darkModeToggle: UISwitch!
     private var darkModeLabel: UILabel!

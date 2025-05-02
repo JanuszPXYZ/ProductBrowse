@@ -9,15 +9,26 @@ import SwiftUI
 
 struct ProductDetailView: View {
     var product: Product
+    var addFavoriteProductAction: ((Product) -> Void)?
+    var removeFavoriteProductAction: ((Product) -> Void)?
     @State private var isFavorite = false
     var body: some View {
-        ProductDetailHeaderView(product: product, isFavorite: $isFavorite)
+        ProductDetailHeaderView(product: product, addFavoriteProductAction: addFavoriteProductAction, removeFavoriteProductAction: removeFavoriteProductAction, isFavorite: $isFavorite)
             .padding([.horizontal, .top], 16)
         ScrollView {
             ProductImagePageView(product: product)
             Text(product.description)
                 .lineSpacing(2)
                 .padding()
+            Divider()
+            HStack {
+                Text("Price:")
+                    .font(.system(size: 20, weight: .medium))
+                Spacer()
+                Text("\(product.price)€")
+                    .font(.system(size: 20, weight: .bold))
+            }
+            .padding()
         }
         Spacer()
     }
@@ -25,7 +36,10 @@ struct ProductDetailView: View {
 
 private struct ProductDetailHeaderView: View {
     var product: Product
+    var addFavoriteProductAction: ((Product) -> Void)?
+    var removeFavoriteProductAction: ((Product) -> Void)?
     @Binding var isFavorite: Bool
+
     var body: some View {
         VStack {
             HStack {
@@ -38,6 +52,11 @@ private struct ProductDetailHeaderView: View {
                 Button {
                     withAnimation(.interpolatingSpring(.bouncy)) {
                         isFavorite.toggle()
+                        if isFavorite {
+                            addFavoriteProductAction?(product)
+                        } else {
+                            removeFavoriteProductAction?(product)
+                        }
                     }
                 } label: {
                     Image(systemName: isFavorite ? "heart.fill" : "heart")
