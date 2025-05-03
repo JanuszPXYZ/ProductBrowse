@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AsyncImageView: View {
     let urlString: String?
-    let networker: Networker
+    let networker: Networking
     @State private var image: UIImage?
     var action: (() -> Void)?
 
@@ -33,7 +33,7 @@ struct AsyncImageView: View {
             }
             Task {
                 do {
-                    image = try await networker.fetchImage(for: urlString)
+                    image = try await networker.fetchWithCache(for: urlString)
                 } catch {
                     print("Error loading image: \(error)")
                 }

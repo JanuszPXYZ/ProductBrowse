@@ -9,9 +9,18 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
-    private var networker = Networker()
+    private var networker: Networking
     private var productManagerViewModel: ProductManagerViewModel?
 
+    init(networker: Networking) {
+        self.networker = networker
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appearance = UITabBarAppearance()
@@ -33,7 +42,7 @@ class MainTabBarViewController: UITabBarController {
         vcTwo.title = "Settings"
         vcTwo.tabBarItem.image = UIImage(systemName: "gear")
 
-        let favoritesVC = FavoritesViewController()
+        let favoritesVC = FavoritesViewController(networker: networker)
         favoritesVC.productManagerViewModel = productManagerViewModel
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart.fill")

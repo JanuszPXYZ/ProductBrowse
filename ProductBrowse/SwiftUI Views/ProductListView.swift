@@ -14,11 +14,18 @@ struct ProductListView: View {
     var body: some View {
         List {
             if productManagerViewModel.fetchedProducts.isEmpty {
-                ForEach(0..<10, id: \.self) { _ in
-                    ProductCellView(product: Product.placeholder(), isRedacted: true, networker: productManagerViewModel.networker, favoritesService: productManagerViewModel)
-                }
-                .alignmentGuide(.listRowSeparatorLeading) { _ in
-                    return 0
+                if productManagerViewModel.isLoading {
+                    ForEach(0..<10, id: \.self) { _ in
+                        ProductCellView(product: Product.placeholder(), isRedacted: true, networker: productManagerViewModel.networker, favoritesService: productManagerViewModel)
+                    }
+                    .alignmentGuide(.listRowSeparatorLeading) { _ in
+                        return 0
+                    }
+                } else {
+                    Text("No products available")
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding()
                 }
             } else {
                 ForEach(productManagerViewModel.fetchedProducts, id: \.id) { product in
@@ -26,6 +33,19 @@ struct ProductListView: View {
                 }
                 .alignmentGuide(.listRowSeparatorLeading) { _ in
                     return 0
+                }
+                if productManagerViewModel.hasMoreProducts {
+                    Button("Load More") {
+                        Task {
+                            await productManagerViewModel.fetchMoreProducts()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .disabled(productManagerViewModel.isLoading)
+                }
+                if productManagerViewModel.isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
         }
@@ -35,5 +55,6 @@ struct ProductListView: View {
                 try await productManagerViewModel.fetchProducts()
             }
         }
+
     }
 }

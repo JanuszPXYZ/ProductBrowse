@@ -12,8 +12,17 @@ class FavoritesViewController: UIViewController {
 
     private var favoritesListHostingController: UIHostingController<FavoriteProductsListView>?
     var productManagerViewModel: ProductManagerViewModel?
-    let networker = Networker()
+    let networker: Networking
 
+    init(networker: Networking) {
+        self.networker = networker
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground

@@ -11,7 +11,7 @@ struct ProductCellView: View {
     var product: Product
     var isRedacted: Bool = false
     var action: ((Product) -> Void)?
-    let networker: Networker
+    let networker: Networking
     let favoritesService: any FavoritesService
 
     var body: some View {

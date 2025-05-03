@@ -9,14 +9,23 @@ import Foundation
 
 struct ProductRequest: Request {
 
+    // MARK: - Pagination functionality
+    let offset: Int
+    let limit: Int
+    
     var method: HTTPMethod { .get }
 
-    var url: URLComponents? = {
+    var url: URLComponents? {
         var components = URLComponents(string: "https://api.escuelajs.co")
         components?.path = "/api/v1/products"
 
+        components?.queryItems = [
+            URLQueryItem(name: "offset", value: String(offset)),
+            URLQueryItem(name: "limit", value: String(limit))
+        ]
+
         return components
-    }()
+    }
 
     func decode(_ data: Data) throws -> [Product] {
         let decoder = JSONDecoder()

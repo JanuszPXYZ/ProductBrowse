@@ -14,7 +14,7 @@ struct FavoriteProductsListView: View {
     var body: some View {
         List {
             ForEach(productManagerViewModel.favoriteProducts, id: \.id) { product in
-                ProductCellView(product: product, action: action, networker: productManagerViewModel.networker, favoritesService: productManagerViewModel)
+                ProductCellView(product: product, action: action, networker: productManagerViewModel.networker as! Networker, favoritesService: productManagerViewModel)
             }
             .alignmentGuide(.listRowSeparatorLeading) { _ in
                 return 0
