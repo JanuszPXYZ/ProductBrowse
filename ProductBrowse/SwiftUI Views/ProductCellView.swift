@@ -12,10 +12,27 @@ struct ProductCellView: View {
     var isRedacted: Bool = false
     var action: ((Product) -> Void)?
     let networker: Networker
+    let favoritesService: any FavoritesService
 
     var body: some View {
         HStack(alignment: .top) {
-            AsyncImageView(urlString: product.images.first, networker: networker)
+            AsyncImageView(urlString: product.images.first, networker: networker) {
+                favoritesService.toggleFavorite(product)
+            }
+            .overlay {
+                if favoritesService.isProductFavorite(product) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10.0)
+                            .frame(width: 100, height: 100)
+                            .foregroundStyle(.white)
+                            .opacity(0.5)
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
             VStack(spacing: 13) {
                 HStack {
                     Text(product.title)
@@ -23,9 +40,6 @@ struct ProductCellView: View {
                     Spacer()
                     Text("\(product.price)€")
                         .fontWeight(.heavy)
-                    // TODO: The system image should update accordingly. Once the product has been added to the favorites, it should be reflected in the list. The current approach simply won't trigger a SwiftUI redraw, because it's not a state variable, nor an observed object.
-                    Image(systemName: product.isFavorite ?? false ? "heart.fill" : "heart")
-                        .frame(width: 10, height: 10)
                 }
                 HStack {
                     Text(product.description)
@@ -50,5 +64,5 @@ struct ProductCellView: View {
 
 
 #Preview(traits: .sizeThatFitsLayout) {
-    ProductCellView(product: Product.placeholder(), networker: Networker())
+    ProductCellView(product: Product.placeholder(), networker: Networker(), favoritesService: ProductManagerViewModel(networker: Networker()))
 }

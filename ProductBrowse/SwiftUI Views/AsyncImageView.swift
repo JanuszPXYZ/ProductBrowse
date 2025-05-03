@@ -11,6 +11,7 @@ struct AsyncImageView: View {
     let urlString: String?
     let networker: Networker
     @State private var image: UIImage?
+    var action: (() -> Void)?
 
     var body: some View {
         Group {
@@ -36,6 +37,11 @@ struct AsyncImageView: View {
                 } catch {
                     print("Error loading image: \(error)")
                 }
+            }
+        }
+        .onTapGesture(count: 2) {
+            withAnimation(.interpolatingSpring(.bouncy(duration: 0.5))) {
+                action?()
             }
         }
     }
