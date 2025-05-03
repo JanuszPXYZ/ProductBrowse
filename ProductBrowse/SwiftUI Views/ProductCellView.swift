@@ -23,6 +23,9 @@ struct ProductCellView: View {
                     Spacer()
                     Text("\(product.price)€")
                         .fontWeight(.heavy)
+                    // TODO: The system image should update accordingly. Once the product has been added to the favorites, it should be reflected in the list. The current approach simply won't trigger a SwiftUI redraw, because it's not a state variable, nor an observed object.
+                    Image(systemName: product.isFavorite ?? false ? "heart.fill" : "heart")
+                        .frame(width: 10, height: 10)
                 }
                 HStack {
                     Text(product.description)

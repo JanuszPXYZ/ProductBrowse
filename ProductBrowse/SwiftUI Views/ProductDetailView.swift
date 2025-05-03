@@ -7,13 +7,11 @@
 
 import SwiftUI
 
-struct ProductDetailView: View {
+struct ProductDetailView<T: FavoritesService & ObservableObject>: View {
     var product: Product
-    var addFavoriteProductAction: ((Product) -> Void)?
-    var removeFavoriteProductAction: ((Product) -> Void)?
-    @State private var isFavorite = false
+    @ObservedObject var favoritesService: T
     var body: some View {
-        ProductDetailHeaderView(product: product, addFavoriteProductAction: addFavoriteProductAction, removeFavoriteProductAction: removeFavoriteProductAction, isFavorite: $isFavorite)
+        ProductDetailHeaderView(product: product, favoritesService: favoritesService)
             .padding([.horizontal, .top], 16)
         ScrollView {
             ProductImagePageView(product: product)
@@ -34,12 +32,9 @@ struct ProductDetailView: View {
     }
 }
 
-private struct ProductDetailHeaderView: View {
+private struct ProductDetailHeaderView<T: FavoritesService & ObservableObject>: View {
     var product: Product
-    var addFavoriteProductAction: ((Product) -> Void)?
-    var removeFavoriteProductAction: ((Product) -> Void)?
-    @Binding var isFavorite: Bool
-
+    @ObservedObject var favoritesService: T
     var body: some View {
         VStack {
             HStack {
@@ -51,20 +46,15 @@ private struct ProductDetailHeaderView: View {
                 Spacer()
                 Button {
                     withAnimation(.interpolatingSpring(.bouncy)) {
-                        isFavorite.toggle()
-                        if isFavorite {
-                            addFavoriteProductAction?(product)
-                        } else {
-                            removeFavoriteProductAction?(product)
-                        }
+                        favoritesService.toggleFavorite(product)
                     }
                 } label: {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    Image(systemName: favoritesService.isProductFavorite(product) ? "heart.fill" : "heart")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 22, height: 20)
-                        .foregroundStyle(isFavorite ? .red : .gray)
-                        .scaleEffect(isFavorite ? 1.2 : 1.0)
+                        .foregroundStyle(favoritesService.isProductFavorite(product) ? .red : .gray)
+                        .scaleEffect(favoritesService.isProductFavorite(product) ? 1.2 : 1.0)
                 }
             }
             Divider()
@@ -74,9 +64,9 @@ private struct ProductDetailHeaderView: View {
 }
 
 #Preview {
-    ProductDetailView(product: Product.placeholder())
+    ProductDetailView(product: Product.placeholder(), favoritesService: ProductManagerViewModel(networker: Networker()))
 }
 
 #Preview("ProductDetailHeaderView", traits: .sizeThatFitsLayout) {
-    ProductDetailHeaderView(product: Product.placeholder(), isFavorite: .constant(false))
+    ProductDetailHeaderView(product: Product.placeholder(), favoritesService: ProductManagerViewModel(networker: Networker()))
 }

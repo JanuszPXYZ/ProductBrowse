@@ -11,7 +11,7 @@ import SwiftUI
 class ProductListViewController: UIViewController {
 
     private var productListView: UIHostingController<ProductListView>?
-    private var productDetailView: UIHostingController<ProductDetailView>?
+    private var productDetailView: UIHostingController<ProductDetailView<ProductManagerViewModel>>?
 
     var managerViewModel: ProductManagerViewModel?
     var networker = Networker()
@@ -31,19 +31,11 @@ class ProductListViewController: UIViewController {
 
         productListView?.rootView.action = { [weak self] product in
             guard let self = self else { return }
-            let productDetailView = UIHostingController(rootView: ProductDetailView(product: product))
+            let productDetailView = UIHostingController(rootView: ProductDetailView(product: product, favoritesService: managerViewModel))
             productDetailView.navigationItem.largeTitleDisplayMode = .never
 
             self.productDetailView = productDetailView
             self.navigationController?.pushViewController(productDetailView, animated: true)
-
-            self.productDetailView?.rootView.addFavoriteProductAction = { product in
-                self.managerViewModel?.addToFavorites(product: product)
-            }
-
-            self.productDetailView?.rootView.removeFavoriteProductAction = { product in
-                self.managerViewModel?.removeFromFavorites(product: product)
-            }
         }
 
         guard let productViewCell = productListView?.view else {

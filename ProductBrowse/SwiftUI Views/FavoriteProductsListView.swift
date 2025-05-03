@@ -13,19 +13,19 @@ struct FavoriteProductsListView: View {
 
     var body: some View {
         List {
-            if !productManagerViewModel.favoriteProducts.isEmpty {
-                ForEach(productManagerViewModel.favoriteProducts, id: \.id) { product in
-                    ProductCellView(product: product, action: action, networker: productManagerViewModel.networker)
-                }
-                .alignmentGuide(.listRowSeparatorLeading) { _ in
-                    return 0
-                }
-            } else {
-                Text("No favorite products added")
-                    .bold()
+            ForEach(productManagerViewModel.favoriteProducts, id: \.id) { product in
+                ProductCellView(product: product, action: action, networker: productManagerViewModel.networker)
+            }
+            .alignmentGuide(.listRowSeparatorLeading) { _ in
+                return 0
             }
         }
         .listStyle(PlainListStyle())
+        .overlay {
+            if productManagerViewModel.favoriteProducts.isEmpty {
+                Text("No favorite products added")
+            }
+        }
     }
 }
 
