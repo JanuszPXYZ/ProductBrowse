@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProductDetailView<T: FavoritesService & ObservableObject>: View {
+struct ProductDetailView<T: FavoritesService>: View {
     var product: Product
     @ObservedObject var favoritesService: T
     var body: some View {
@@ -32,7 +32,7 @@ struct ProductDetailView<T: FavoritesService & ObservableObject>: View {
     }
 }
 
-private struct ProductDetailHeaderView<T: FavoritesService & ObservableObject>: View {
+private struct ProductDetailHeaderView<T: FavoritesService>: View {
     var product: Product
     @ObservedObject var favoritesService: T
     var body: some View {
@@ -57,7 +57,6 @@ private struct ProductDetailHeaderView<T: FavoritesService & ObservableObject>: 
                         .scaleEffect(favoritesService.isProductFavorite(product) ? 1.2 : 1.0)
                 }
             }
-            Divider()
         }
         .frame(height: 50)
     }

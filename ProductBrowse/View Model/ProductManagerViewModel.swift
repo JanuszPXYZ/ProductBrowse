@@ -30,8 +30,6 @@ final class ProductManagerViewModel: ObservableObject, @preconcurrency Favorites
         paginationOffset = 0 // Reset for initial fetch
         hasMoreProducts = true
 
-        fetchedProducts = []
-
         let productRequest = ProductRequest(offset: paginationOffset, limit: paginationElementLimit)
         do {
             let products = try await networker.fetch(request: productRequest)

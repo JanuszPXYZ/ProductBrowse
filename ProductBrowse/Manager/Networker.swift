@@ -20,8 +20,8 @@ final class Networker: Networking {
     }
 
     nonisolated func fetch<R: Request>(request: R) async throws -> R.Output? {
-        var requestURLComponents = request.url
-        
+        let requestURLComponents = request.url
+
         guard let components = requestURLComponents,
               let url = components.url else {
             throw URLError(.badURL)

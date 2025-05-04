@@ -33,6 +33,32 @@ class MainTabBarViewController: UITabBarController {
 
     private func configureViewControllers() {
         productManagerViewModel = ProductManagerViewModel(networker: networker)
+        #if UIKIT
+        var tableNavController: UINavigationController?
+        if let productManagerViewModel = productManagerViewModel {
+            let tableViewController = ProductTableViewController(viewModel: productManagerViewModel)
+            tableNavController = UINavigationController(rootViewController: tableViewController)
+            tableNavController?.tabBarItem = UITabBarItem(title: "Products (UIKit)", image: UIImage(systemName: "tablecells"), tag: 1)
+        }
+
+        let vcTwo = SettingsViewController()
+        vcTwo.title = "Settings"
+        vcTwo.tabBarItem.image = UIImage(systemName: "gear")
+
+        let favoritesVC = FavoritesViewController(networker: networker)
+        favoritesVC.productManagerViewModel = productManagerViewModel
+        favoritesVC.title = "Favorites"
+        favoritesVC.tabBarItem.image = UIImage(systemName: "heart.fill")
+
+        guard let tableNavController = tableNavController else { return }
+        let navigationControllers = [tableNavController,
+                                     UINavigationController(rootViewController: favoritesVC),
+                                     UINavigationController(rootViewController: vcTwo)]
+
+        _ = navigationControllers.map { navigationController in
+            navigationController.navigationBar.prefersLargeTitles = true
+        }
+        #else
         let vcOne = ProductListViewController()
         vcOne.managerViewModel = productManagerViewModel
         vcOne.title = "Products"
@@ -46,7 +72,6 @@ class MainTabBarViewController: UITabBarController {
         favoritesVC.productManagerViewModel = productManagerViewModel
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart.fill")
-        
 
         let navigationControllers = [UINavigationController(rootViewController: vcOne),
                                      UINavigationController(rootViewController: favoritesVC),
@@ -55,6 +80,7 @@ class MainTabBarViewController: UITabBarController {
         _ = navigationControllers.map { navigationController in
             navigationController.navigationBar.prefersLargeTitles = true
         }
+        #endif
 
         self.viewControllers = navigationControllers
     }
