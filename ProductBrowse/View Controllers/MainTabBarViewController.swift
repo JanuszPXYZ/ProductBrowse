@@ -12,8 +12,9 @@ class MainTabBarViewController: UITabBarController {
     private var networker: Networking
     private var productManagerViewModel: ProductManagerViewModel?
 
-    init(networker: Networking) {
+    init(networker: Networking, productManagerViewModel: ProductManagerViewModel? = nil) {
         self.networker = networker
+        self.productManagerViewModel = productManagerViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,14 +33,16 @@ class MainTabBarViewController: UITabBarController {
     }
 
     private func configureViewControllers() {
-        productManagerViewModel = ProductManagerViewModel(networker: networker)
+        guard let productManagerViewModel = self.productManagerViewModel else {
+            return
+        }
         #if UIKIT
         var tableNavController: UINavigationController?
-        if let productManagerViewModel = productManagerViewModel {
+//        if let productManagerViewModel = productManagerViewModel {
             let tableViewController = ProductTableViewController(viewModel: productManagerViewModel)
             tableNavController = UINavigationController(rootViewController: tableViewController)
             tableNavController?.tabBarItem = UITabBarItem(title: "Products (UIKit)", image: UIImage(systemName: "tablecells"), tag: 1)
-        }
+//        }
 
         let vcTwo = SettingsViewController()
         vcTwo.title = "Settings"
