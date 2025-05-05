@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProductTableViewCellDelegate: AnyObject {
+    func doubleTapAddToFavorites(in cell: ProductTableViewCell)
+}
+
 class ProductTableViewCell: UITableViewCell {
 
     @IBOutlet weak var productImageView: UIImageView!
@@ -14,6 +18,8 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var addedToFavoritesOverlayView: UIView!
+
+    weak var delegate: ProductTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +29,14 @@ class ProductTableViewCell: UITableViewCell {
         productPrice.font = .boldSystemFont(ofSize: 16)
         productDescription.textColor = .gray
         productDescription.numberOfLines = 2
+
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGesture))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc private func doubleTapGesture(_ recognizer: UITapGestureRecognizer) {
+        delegate?.doubleTapAddToFavorites(in: self)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

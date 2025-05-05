@@ -9,10 +9,19 @@ import UIKit
 import SwiftUI
 import Combine
 
-class ProductTableViewController: UITableViewController {
+class ProductTableViewController: UITableViewController, ProductTableViewCellDelegate {
+
+    func doubleTapAddToFavorites(in cell: ProductTableViewCell) {
+        let row = tableView.indexPath(for: cell)?.row
+        if let row = row {
+            let product = viewModel.fetchedProducts[row]
+            viewModel.toggleFavorite(product)
+        }
+    }
 
     private let viewModel: ProductManagerViewModel
     private let cellReuseIdentifier = "ProductTableViewCell"
+    private var tappedCellIndexPath = 0
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -57,6 +66,8 @@ class ProductTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! ProductTableViewCell
+
+        cell.delegate = self
 
         if viewModel.fetchedProducts.isEmpty {
             cell.configure(with: Product.placeholder(), networker: viewModel.networker, completion: {
