@@ -38,11 +38,9 @@ class MainTabBarViewController: UITabBarController {
         }
         #if UIKIT
         var tableNavController: UINavigationController?
-//        if let productManagerViewModel = productManagerViewModel {
             let tableViewController = ProductTableViewController(viewModel: productManagerViewModel)
             tableNavController = UINavigationController(rootViewController: tableViewController)
             tableNavController?.tabBarItem = UITabBarItem(title: "Products (UIKit)", image: UIImage(systemName: "tablecells"), tag: 1)
-//        }
 
         let vcTwo = SettingsViewController()
         vcTwo.title = "Settings"
