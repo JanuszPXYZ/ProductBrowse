@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,8 +19,8 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GtK-n2-njm">
                         <rect key="frame" x="9" y="8" width="108" height="112"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMd-Dj-88z">
-                        <rect key="frame" x="130" y="4" width="183" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMd-Dj-88z">
+                        <rect key="frame" x="130" y="4" width="183" height="20.333333333333332"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="183" id="yxM-iu-oeh"/>
                         </constraints>
@@ -28,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6a-v9-uv7">
-                        <rect key="frame" x="129" y="36.666666666666657" width="233" height="80"/>
+                        <rect key="frame" x="129" y="37" width="233" height="80"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="BHa-t8-RNE"/>
                             <constraint firstAttribute="width" constant="233" id="e0S-ks-psi"/>
@@ -39,33 +40,35 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FcH-Fr-Fer">
                         <rect key="frame" x="320" y="4" width="42" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="liL-aL-8pz"/>
-                            <constraint firstAttribute="width" constant="42" id="nyb-bL-OkE"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-UA-DgQ">
+                        <rect key="frame" x="9" y="8" width="111" height="112"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="GtK-n2-njm" firstAttribute="height" secondItem="gyU-QT-BUc" secondAttribute="height" constant="-16" id="0BO-RJ-IHq"/>
                     <constraint firstItem="GtK-n2-njm" firstAttribute="top" secondItem="gyU-QT-BUc" secondAttribute="top" constant="8" id="4DX-z1-y2L"/>
-                    <constraint firstItem="FcH-Fr-Fer" firstAttribute="top" secondItem="gyU-QT-BUc" secondAttribute="top" constant="4" id="ENJ-wT-5m3"/>
-                    <constraint firstItem="FcH-Fr-Fer" firstAttribute="leading" secondItem="WMd-Dj-88z" secondAttribute="trailing" constant="7" id="GWH-eb-dOg"/>
                     <constraint firstItem="WMd-Dj-88z" firstAttribute="leading" secondItem="GtK-n2-njm" secondAttribute="trailing" constant="13" id="Kr7-lK-mhA"/>
+                    <constraint firstAttribute="bottom" secondItem="Q9j-UA-DgQ" secondAttribute="bottom" constant="8" id="MTu-Sz-Dj2"/>
+                    <constraint firstItem="e6a-v9-uv7" firstAttribute="leading" secondItem="Q9j-UA-DgQ" secondAttribute="trailing" constant="9" id="N4U-S3-Opd"/>
                     <constraint firstAttribute="bottom" secondItem="GtK-n2-njm" secondAttribute="bottom" constant="8" id="SWE-9N-D7c"/>
                     <constraint firstItem="GtK-n2-njm" firstAttribute="leading" secondItem="gyU-QT-BUc" secondAttribute="leading" constant="9" id="UMM-dA-Z9T"/>
+                    <constraint firstItem="Q9j-UA-DgQ" firstAttribute="leading" secondItem="gyU-QT-BUc" secondAttribute="leading" constant="9" id="XG6-PU-nM9"/>
                     <constraint firstItem="GtK-n2-njm" firstAttribute="width" secondItem="gyU-QT-BUc" secondAttribute="width" multiplier="0.336397" constant="-14" id="jFp-Wy-Zw6"/>
+                    <constraint firstItem="FcH-Fr-Fer" firstAttribute="leading" secondItem="WMd-Dj-88z" secondAttribute="trailing" constant="7" id="jcl-9w-z2v"/>
                     <constraint firstItem="e6a-v9-uv7" firstAttribute="top" secondItem="WMd-Dj-88z" secondAttribute="bottom" constant="12.666666666666668" id="r21-5k-Xxk"/>
                     <constraint firstItem="WMd-Dj-88z" firstAttribute="top" secondItem="gyU-QT-BUc" secondAttribute="top" constant="4" id="rrb-nL-TwL"/>
                     <constraint firstItem="e6a-v9-uv7" firstAttribute="leading" secondItem="GtK-n2-njm" secondAttribute="trailing" constant="12" id="soT-bz-ydQ"/>
+                    <constraint firstItem="Q9j-UA-DgQ" firstAttribute="top" secondItem="gyU-QT-BUc" secondAttribute="top" constant="8" id="v94-Ee-Sd5"/>
+                    <constraint firstItem="FcH-Fr-Fer" firstAttribute="top" secondItem="gyU-QT-BUc" secondAttribute="top" constant="4" id="yVL-BR-gSz"/>
                 </constraints>
             </tableViewCellContentView>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="FcH-Fr-Fer" secondAttribute="trailing" constant="31" id="1gw-9j-0PE"/>
-            </constraints>
             <connections>
+                <outlet property="addedToFavoritesOverlayView" destination="Q9j-UA-DgQ" id="Exl-Dw-5nq"/>
                 <outlet property="productDescription" destination="e6a-v9-uv7" id="NBl-Hg-9cP"/>
                 <outlet property="productImageView" destination="GtK-n2-njm" id="uYg-xo-a1t"/>
                 <outlet property="productName" destination="WMd-Dj-88z" id="0EB-Wu-2Dv"/>
@@ -74,4 +77,9 @@
             <point key="canvasLocation" x="194.6564885496183" y="70.422535211267615"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

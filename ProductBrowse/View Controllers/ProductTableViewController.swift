@@ -30,20 +30,16 @@ class ProductTableViewController: UITableViewController {
         title = "Products"
         tableView.register(UINib(nibName: "ProductTableViewCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
         tableView.rowHeight = 128
-//        tableView.estimatedRowHeight = 128
 
         Task {
-            print("Fetching products...")
             try await viewModel.fetchProducts()
             await MainActor.run {
-                print("Reloading table view with \(self.viewModel.fetchedProducts.count) products")
                 self.tableView.reloadData()
             }
         }
 
         viewModel.objectWillChange.sink { [weak self] in
             DispatchQueue.main.async {
-                print("View model changed, reloading table with \(self?.viewModel.fetchedProducts.count ?? 0) products")
                 self?.tableView.reloadData()
             }
         }.store(in: &cancellables)
@@ -63,15 +59,20 @@ class ProductTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! ProductTableViewCell
 
         if viewModel.fetchedProducts.isEmpty {
-            cell.configure(with: Product.placeholder(), networker: viewModel.networker)
+            cell.configure(with: Product.placeholder(), networker: viewModel.networker, completion: {
+                return false
+            })
             cell.isUserInteractionEnabled = false
             cell.contentView.alpha = 0.5
         } else {
             let product = viewModel.fetchedProducts[indexPath.row]
-            cell.configure(with: product, networker: viewModel.networker)
+            cell.configure(with: product, networker: viewModel.networker, completion: {
+                self.viewModel.isProductFavorite(product)
+            })
             cell.isUserInteractionEnabled = true
             cell.contentView.alpha = 1.0
 
+            // MARK: - Implementing the infinite scroll mechanism -
             if indexPath.row == viewModel.fetchedProducts.count - 1, viewModel.hasMoreProducts, !viewModel.isLoading {
                 Task {
                     await viewModel.fetchMoreProducts()

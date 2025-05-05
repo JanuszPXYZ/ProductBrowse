@@ -10,6 +10,7 @@ import Foundation
 final class ProductManagerViewModel: ObservableObject, @preconcurrency FavoritesService {
     @Published private(set) var fetchedProducts: [Product] = []
     @Published private(set) var favoriteProducts: [Product] = []
+    private let favoriteProductsDataFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("favorites.json")
 
     // MARK: - Pagination functionality
     @Published private(set) var isLoading = false
@@ -83,13 +84,48 @@ final class ProductManagerViewModel: ObservableObject, @preconcurrency Favorites
         if isCurrentlyFavorite {
             favoriteProducts.removeAll { $0.id == product.id }
             updatedProduct.isFavorite = false
+            self.saveFavoriteProducts(favoriteProducts)
         } else {
             favoriteProducts.append(updatedProduct)
             updatedProduct.isFavorite = true
+            self.saveFavoriteProducts(favoriteProducts)
         }
 
         if let index = fetchedProducts.firstIndex(where: { $0.id == product.id }) {
             fetchedProducts[index] = updatedProduct
         }
+    }
+
+    func saveFavoriteProducts(_ products: [Product]) {
+        do {
+            if let favoriteProductsData = favoriteProductsDataFileURL {
+                try Product.save(products, to: favoriteProductsData)
+            }
+        } catch {
+            print("Error saving flight details: \(error)")
+        }
+    }
+
+    func loadFavoriteProducts() {
+        if self.favoriteProductsFileExists() {
+            do {
+                if let favoriteProductsDataFileURL = favoriteProductsDataFileURL {
+                    self.favoriteProducts = try Product.load(from: favoriteProductsDataFileURL)
+                }
+            } catch let error as NSError {
+                print("ERROR CODE: \(error.code)")
+                print("Error loading flight details: \(error)")
+            }
+        } else {
+            print("flightDetails.json does not exist yet. Loading in an empty container")
+            self.favoriteProducts = []
+        }
+    }
+
+    private func favoriteProductsFileExists() -> Bool {
+        if let favoriteProductsDataFileURL = favoriteProductsDataFileURL {
+            return FileManager.default.fileExists(atPath: favoriteProductsDataFileURL.path)
+        }
+        return false
     }
 }

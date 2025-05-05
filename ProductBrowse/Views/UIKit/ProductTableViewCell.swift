@@ -13,6 +13,7 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var addedToFavoritesOverlayView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,26 +29,44 @@ class ProductTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func configure(with product: Product, networker: any Networking) {
+    func configure(with product: Product, networker: any Networking, completion: @escaping (() -> Bool)) {
         productName.text = product.title
         productDescription.text = product.description
         productPrice.text = "\(product.price)€"
 
         productImageView.layer.cornerRadius = 16.0
         productImageView.image = UIImage(systemName: "photo.fill")
+        addedToFavoritesOverlayView.alpha = 0.0
 
         if let imageURL = product.images.first {
             Task {
                 do {
                     let image = try await networker.fetchWithCache(for: imageURL)
-                        await MainActor.run {
-                            self.productImageView.image = image
+                    await MainActor.run {
+                        self.productImageView.image = image
+                        if completion() {
+                            configureOverlay()
                         }
-                    } catch {
+                    }
+                } catch {
                     print(String(describing: error))
                 }
             }
         }
+    }
+
+    private func configureOverlay() {
+        addedToFavoritesOverlayView.layer.cornerRadius = 16.0
+        let addedToFavoritesImageView = UIImageView()
+        addedToFavoritesImageView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        addedToFavoritesImageView.contentMode = .scaleAspectFill
+        addedToFavoritesImageView.image = UIImage(systemName: "heart.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(.red)
+        addedToFavoritesOverlayView.addSubview(addedToFavoritesImageView)
+
+        addedToFavoritesImageView.center = CGPoint(x: addedToFavoritesOverlayView.bounds.midX, y: addedToFavoritesOverlayView.bounds.midY)
+
+        addedToFavoritesOverlayView.alpha = 0.5
+
     }
 
     override func prepareForReuse() {
@@ -57,6 +76,4 @@ class ProductTableViewCell: UITableViewCell {
         productDescription.text = nil
         productPrice.text = nil
     }
-
-
 }
