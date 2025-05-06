@@ -18,5 +18,79 @@
             endingLineNumber = "1">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BB17C2B-6FF2-4132-BAFE-50D64DA9FDE5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProductBrowse/Views/SwiftUI/ProductListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "5BB17C2B-6FF2-4132-BAFE-50D64DA9FDE5 - 12544c2f58ad0994"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async throws -&gt; () in closure #2 () -&gt; () in ProductBrowse.ProductListView.body.getter : some"
+                  moduleName = "ProductBrowse.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/januszpolowczyk/Developer/ProductBrowse/ProductBrowse/Views/SwiftUI/ProductListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55">
+               </Location>
+               <Location
+                  uuid = "5BB17C2B-6FF2-4132-BAFE-50D64DA9FDE5 - bab8d8f4dc02a331"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 () async throws -&gt; () in closure #2 () -&gt; () in ProductBrowse.ProductListView.body.getter : some"
+                  moduleName = "ProductBrowse.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/januszpolowczyk/Developer/ProductBrowse/ProductBrowse/Views/SwiftUI/ProductListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55">
+               </Location>
+               <Location
+                  uuid = "5BB17C2B-6FF2-4132-BAFE-50D64DA9FDE5 - 19309b861ee4b596"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in closure #2 () -&gt; () in ProductBrowse.ProductListView.body.getter : some"
+                  moduleName = "ProductBrowse.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/januszpolowczyk/Developer/ProductBrowse/ProductBrowse/Views/SwiftUI/ProductListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55">
+               </Location>
+               <Location
+                  uuid = "5BB17C2B-6FF2-4132-BAFE-50D64DA9FDE5 - 1c7e802973ff1797"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async throws -&gt; () in closure #2 () -&gt; () in ProductBrowse.ProductListView.body.getter : some"
+                  moduleName = "ProductBrowse.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/januszpolowczyk/Developer/ProductBrowse/ProductBrowse/Views/SwiftUI/ProductListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
