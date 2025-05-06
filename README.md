@@ -15,5 +15,6 @@ As for the usage of AI in the project, the two times I used it was when I was br
 * Absolutely no storyboards (apart from the table view cell XIB that I could design easily in code, but wanted to play around a bit) - they are a hassle to work with in a collaborative setting and merge conflicts are a usual occurrence with them.
 * Programmatic constraints (where needed)
 * Figma for logo creation
+* XCTests used for testing
 
 Time spent on the task: around 7.5 hours in total.
