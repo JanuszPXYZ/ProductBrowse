@@ -2,6 +2,8 @@
 <img width="180" alt=„ProductsScreen” src="https://github.com/user-attachments/assets/46bca42e-e3aa-4f4e-a741-20571ea531bb"/>
 <img width="180" alt=„DetailView” src="https://github.com/user-attachments/assets/cf51b9d4-5aa0-4476-810f-82fc885293f9"/>
 <img width="180" alt=„FavoritesScreen” src="https://github.com/user-attachments/assets/b7589129-6f21-4b4e-9d1b-c5191c33c6d5"/>
+<img width="180" alt=„FavoritesScreen” src="https://github.com/user-attachments/assets/e485dae7-fcae-4fcb-b312-7f8274881e7c"/>
+<img width="180" alt=„FavoritesScreen” src="https://github.com/user-attachments/assets/debadcee-5e91-47a0-b502-e38437272db0"/>
 
 Usually before I start coding anything, I try to sit down and think what I'll need to correctly solve the problem at hand. This exercise was no different. After reading the problem statement a couple of times and going over it in my head, I decided to go with the hybrid approach, i.e., mixing SwiftUI and UIKit together. Although SwiftUI is the future of building apps for Apple platforms, I still think that there are certain pain points of the framework that have not yet been addressed, and having the "fallback" option of using the battle-tested UIKit ensures that the app remains robust. Also it goes without saying that UIKit still holds the upper hand over SwiftUI in terms of the "granularity of the modifications". `UIView`s, `UITableView`s and other UIKit elements allow for greater customization. Having said all of that, SwiftUI is a phenomenal framework that brings the speed of the development to a new level. Creating pleasant looking views is a breeze, and is extremely fast. 
 
