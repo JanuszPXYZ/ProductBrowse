@@ -9,15 +9,7 @@ import UIKit
 import SwiftUI
 import Combine
 
-class ProductTableViewController: UITableViewController, ProductTableViewCellDelegate {
-
-    func doubleTapAddToFavorites(in cell: ProductTableViewCell) {
-        let row = tableView.indexPath(for: cell)?.row
-        if let row = row {
-            let product = viewModel.fetchedProducts[row]
-            viewModel.toggleFavorite(product)
-        }
-    }
+final class ProductTableViewController: UITableViewController, ProductTableViewCellDelegate {
 
     private let viewModel: ProductManagerViewModel
     private let cellReuseIdentifier = "ProductTableViewCell"
@@ -52,6 +44,16 @@ class ProductTableViewController: UITableViewController, ProductTableViewCellDel
                 self?.tableView.reloadData()
             }
         }.store(in: &cancellables)
+    }
+
+    nonisolated func doubleTapAddToFavorites(in cell: ProductTableViewCell) {
+        MainActor.assumeIsolated {
+            let row = tableView.indexPath(for: cell)?.row
+            if let row = row {
+                let product = viewModel.fetchedProducts[row]
+                viewModel.toggleFavorite(product)
+            }
+        }
     }
 
     // MARK: - Table view data source

@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-@MainActor
-final class Networker: Networking {
+actor Networker: Networking {
 
     private let imageCache: NSCache<NSString, UIImage>
 
@@ -19,7 +18,7 @@ final class Networker: Networking {
         imageCache.totalCostLimit = 50 * 1024 * 1024 // 50MB cache limit for images in the memory
     }
 
-    nonisolated func fetch<R: Request>(request: R) async throws -> R.Output? {
+     func fetch<R: Request>(request: R) async throws -> R.Output? {
         let requestURLComponents = request.url
 
         guard let components = requestURLComponents,

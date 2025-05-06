@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class ProductListViewController: UIViewController {
+final class ProductListViewController: UIViewController {
 
     private var productListView: UIHostingController<ProductListView>?
     private var productDetailView: UIHostingController<ProductDetailView<ProductManagerViewModel>>?

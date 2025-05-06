@@ -11,7 +11,7 @@ protocol ProductTableViewCellDelegate: AnyObject {
     func doubleTapAddToFavorites(in cell: ProductTableViewCell)
 }
 
-class ProductTableViewCell: UITableViewCell {
+final class ProductTableViewCell: UITableViewCell {
 
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productName: UILabel!
@@ -23,18 +23,21 @@ class ProductTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        productImageView.contentMode = .scaleAspectFit
-        productName.font = .systemFont(ofSize: 16)
-        productDescription.font = .systemFont(ofSize: 14)
-        productPrice.font = .boldSystemFont(ofSize: 16)
-        productDescription.textColor = .gray
-        productDescription.numberOfLines = 2
-
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGesture))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        addGestureRecognizer(tapGestureRecognizer)
+        MainActor.assumeIsolated {
+            productImageView.contentMode = .scaleAspectFit
+            productName.font = .systemFont(ofSize: 16)
+            productDescription.font = .systemFont(ofSize: 14)
+            productPrice.font = .boldSystemFont(ofSize: 16)
+            productDescription.textColor = .gray
+            productDescription.numberOfLines = 2
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGesture))
+            tapGestureRecognizer.numberOfTapsRequired = 2
+            addGestureRecognizer(tapGestureRecognizer)
+        }
     }
 
+    @MainActor
     @objc private func doubleTapGesture(_ recognizer: UITapGestureRecognizer) {
         delegate?.doubleTapAddToFavorites(in: self)
     }

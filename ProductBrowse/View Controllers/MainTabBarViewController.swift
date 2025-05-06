@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+final class MainTabBarViewController: UITabBarController {
 
     private var networker: Networking
     private var productManagerViewModel: ProductManagerViewModel?

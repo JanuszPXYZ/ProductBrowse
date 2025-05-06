@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class FavoritesViewController: UIViewController {
+final class FavoritesViewController: UIViewController {
 
     private var favoritesListHostingController: UIHostingController<FavoriteProductsListView>?
     var productManagerViewModel: ProductManagerViewModel?
