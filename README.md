@@ -18,3 +18,9 @@ As for the usage of AI in the project, the two times I used it was when I was br
 * XCTests used for testing
 
 Time spent on the task: around 7.5 hours in total.
+
+## Findings
+One very interesting thing I found out when experimenting with SwiftUI's `List` and a regular `UITableView` is the performance aspect of the two, especially when implementing the infinite scroll feature. Maybe it had to do with my implementation, but in general the performance of `List` when scrolling fast wasn't as good as `UITableView`. One of the decisions to implement the "Load More" button on the SwiftUI side had to do with that aspect. 
+
+## Feature Prioritization - Dark Mode implementation
+One of the aspects of the app that I was on the fence about was implementing an in-app switch for dark mode support. Apple's Human Interface Guideline recommends supporting dark mode at the system level to ensure that the experience is consistent across all the iOS apps. Not to mention that a feature like that might be confusing for the users. Let's say that a given user has automatic mode selected, which adjusts the screen colors according to the time of day, and that the app was set for dark mode internally. The user might forget that they set it and start questioning why the app is dark, when the whole layout is bright. In general, I've always went with system level support for dark mode, as it's consistent with Apple's guidelines and ensures that the colors stay the same throughout.
