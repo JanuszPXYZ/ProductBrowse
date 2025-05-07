@@ -60,23 +60,22 @@ final class MainTabBarViewController: UITabBarController {
             navigationController.navigationBar.prefersLargeTitles = true
         }
         #else
-        let vcOne = ProductListViewController()
-        vcOne.managerViewModel = productManagerViewModel
-        vcOne.title = "Products"
-        vcOne.tabBarItem.image = UIImage(systemName: "shippingbox.fill")
+        let productListViewController = ProductListViewController()
+        productListViewController.managerViewModel = productManagerViewModel
+        productListViewController.title = "Products"
+        productListViewController.tabBarItem.image = UIImage(systemName: "shippingbox.fill")
 
-        let vcTwo = SettingsViewController()
-        vcTwo.title = "Settings"
-        vcTwo.tabBarItem.image = UIImage(systemName: "gear")
+        let settingsViewController = SettingsViewController()
+        settingsViewController.title = "Settings"
+        settingsViewController.tabBarItem.image = UIImage(systemName: "gear")
 
-        let favoritesVC = FavoritesViewController(networker: networker)
-        favoritesVC.productManagerViewModel = productManagerViewModel
+        let favoritesVC = FavoritesViewController(productManagerViewModel: productManagerViewModel)
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart.fill")
 
-        let navigationControllers = [UINavigationController(rootViewController: vcOne),
+        let navigationControllers = [UINavigationController(rootViewController: productListViewController),
                                      UINavigationController(rootViewController: favoritesVC),
-                                     UINavigationController(rootViewController: vcTwo)]
+                                     UINavigationController(rootViewController: settingsViewController)]
 
         _ = navigationControllers.map { navigationController in
             navigationController.navigationBar.prefersLargeTitles = true

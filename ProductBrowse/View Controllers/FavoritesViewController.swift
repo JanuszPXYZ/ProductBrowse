@@ -11,11 +11,11 @@ import SwiftUI
 final class FavoritesViewController: UIViewController {
 
     private var favoritesListHostingController: UIHostingController<FavoriteProductsListView>?
+    private var productDetailView: UIHostingController<ProductDetailView<ProductManagerViewModel>>?
     var productManagerViewModel: ProductManagerViewModel?
-    let networker: Networking
 
-    init(networker: Networking) {
-        self.networker = networker
+    init(productManagerViewModel: ProductManagerViewModel) {
+        self.productManagerViewModel = productManagerViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,6 +33,15 @@ final class FavoritesViewController: UIViewController {
         guard let productManagerViewModel = productManagerViewModel else { return }
         favoritesListHostingController = UIHostingController(rootView: FavoriteProductsListView(productManagerViewModel: productManagerViewModel))
         guard let favoritesListHostingControllerView = favoritesListHostingController?.view else { return }
+
+        favoritesListHostingController?.rootView.action = { [weak self] product in
+            guard let self = self else { return }
+            let productDetailView = UIHostingController(rootView: ProductDetailView(product: product, favoritesService: productManagerViewModel))
+            productDetailView.navigationItem.largeTitleDisplayMode = .never
+
+            self.productDetailView = productDetailView
+            self.navigationController?.pushViewController(productDetailView, animated: true)
+        }
 
         self.view.addSubview(favoritesListHostingControllerView)
         favoritesListHostingControllerView.translatesAutoresizingMaskIntoConstraints = false
