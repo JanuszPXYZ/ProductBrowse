@@ -14,7 +14,6 @@ final class ProductListViewController: UIViewController {
     private var productDetailView: UIHostingController<ProductDetailView<ProductManagerViewModel>>?
 
     var managerViewModel: ProductManagerViewModel?
-    var networker = Networker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
